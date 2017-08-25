@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/reset.css" />
+		<style>
+			#box{
+				width:900px;
+				height:340px;
+				background-image: url(images/bg.png);
+				padding-top: 148px;
+				position: relative;
+				margin: 0 auto;
+			}
+			#img{
+				position:absolute;
+				width:337px;
+				height:189px;
+				top:156px;
+				left:146px;
+				
+			}
+			#mirror{
+				width:70px;
+				height:70px;
+				border:1px solid transparent;
+				border-radius:150px;
+				background-color: #e5778d;
+				opacity:0.3;
+				position: absolute;
+				display:none ;
+				pointer-events:none ;
+				
+			}
+			#max{
+				width:180px;
+				height:180px;
+				border-radius:190px;
+				border: 10px solid #000000; 
+				background-image: url(images/vv.png);
+				margin-left:8px;
+				margin-left:580px;
+				display:none ;
+			}
+			
+			
+			
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<img src="images/v.png"  id="img"/>
+			<div id="mirror"></div>	
+			<div id="max"></div>
+			
+		</div>
+		<script src = "js/utils.js"></script>
+		<script>
+			var img = $("#img");//获取图片
+			var mirror = $("#mirror");//获取小圆圈
+			var max = $("#max");//获取大圆圈
+			var box = $("#box")
+			img.onmousemove = function(ev){//鼠标在小图上移动
+				console.log(ev)
+				mirror.style.display = "block";//小圆圈出现
+				max.style.display = "block";//右边大图出现	
+				l = ev.clientX - box.offsetLeft- mirror.clientWidth/2 ;
+				t = ev.clientY -box.offsetTop- mirror.clientHeight/2;
+		
+				var maxX = img.offsetLeft + img.clientWidth - mirror.clientWidth;//最大left值
+				
+				var maxY = img.offsetTop + img.clientHeight - mirror.clientHeight;//最大top值
+				
+	
+				if(l<img.offsetLeft){
+					
+					l = img.offsetLeft;
+				}
+				if(l>maxX){
+					
+					l = maxX;
+				}
+				
+				if(t<img.offsetTop){
+					
+					t = img.offsetTop;
+				}
+				if(t>maxY){
+					
+					t = maxY;
+				}
+				
+				mirror.style.left = l+ "px";
+					
+				mirror.style.top = t + "px";
+				
+				//已知大图的尺寸，按照比例给大圆圈的背景backgroundPosition定位，实现图片移动效果
+				
+				max.style.backgroundPositionX = -(l-img.offsetLeft)*866/img.clientWidth+"px";
+				
+				max.style.backgroundPositionY = -(t-img.offsetTop)*485/img.clientHeight+"px";
+			}
+			
+		
+		img.onmouseout = function(){//鼠标移出图片，大圆圈和小圆圈都消失
+				
+			mirror.style.display = "none";
+				
+			max.style.display = "none";
+				
+		}
+			
+			
+			
+			
+		</script>
+		
+	</body>
+</html>
