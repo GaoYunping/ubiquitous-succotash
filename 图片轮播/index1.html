@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				
+			}
+			ul{
+				list-style: none;
+			}
+			.box{
+				width: 500px;
+				height: 350px;
+				border: 1px solid red;
+				margin:  50px auto;
+				position: relative;
+				overflow: hidden;
+			}
+			.imgs{
+				width: 200%;
+				height: 100%;
+				position: absolute;
+				left: 0;
+				top: 0;
+				
+			}
+			.imgs img{
+				float:left;
+				width: 500px;
+				height: 100%;
+			}
+			.txts{
+				position: absolute;
+				bottom:0px ;
+				height: 80px;
+				width: 100%;
+				
+			}
+			.txts li{
+				height: 100%;
+				background:-ms-linear-gradient(top, rgba(0,255,0,0.2) 0%, rgba(0,255,0,0.8) 100%);
+				background:-webkit-linear-gradient(top, rgba(0,255,0,0.2) 0%, rgba(0,255,0,0.8) 100%);
+				
+				color: #fff;
+			}
+			.txts h3{
+				line-height: 40px;
+				padding-left: 50px;
+			}
+			.txts p{
+				line-height: 30px;
+				font-size: 14px;
+				color: #000000;
+				padding-left: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="imgs">
+				<img src="img/01.jpg"/>
+				<img src="img/02.jpg"/>
+			</div>
+			<ul class="txts">
+				<li>
+					<h3></h3>
+					<p></p>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="js/utils.js">
+			
+		</script>
+		<script type="text/javascript">
+			var imgs = $(".imgs")[0];
+			var imgs1 = $(".imgs img");
+			console.log(imgs1)
+			var n = 0;
+			var txts = $(".txts")[0];
+			var arr=[" ——七堇年","韩寒《后会无期》","——爱因斯坦 ","——韩寒","——韩寒"]
+			var arr1=['经历过生命中无数突如其来的繁华和苍凉才会变得成熟。','我以为你不是个好人，没想到你连个坏人都不是。',' 一个从未犯错的人是因为他不曾尝试新鲜事物。 ',' 这里没有末路,你从不曾孤独。','我所理解的生活就是和自己喜欢的一切在一起 '];
+			var arrimg=["img/01.jpg","img/02.jpg","img/03.jpg","img/11.jpg","img/12.jpg"]
+			var timing = null;
+			var h3 = $("h3")[0];
+			var p = $("p")[0];
+			h3.innerHTML=arr[0]
+			p.innerHTML=arr1[0]
+			var img = $(".imgs img");
+			function tab (){
+				setTimeout(function(){
+				
+					mTween(txts,"bottom",-80,500)
+				
+				},2500)
+				setInterval(function(){
+					n++;
+					
+					if(n>arrimg.length-1){
+						
+						n=0
+					}
+					img[1].src=arrimg[n];
+					
+					mTween(imgs,"left",-500,300,"linear",function(){
+						imgs.style.left=0
+						img[0].src=img[1].src
+					})	
+					setTimeout(function(){
+						mTween(txts,"bottom",0,500)
+						h3.innerHTML=arr[n]
+						p.innerHTML=arr1[n]
+					},500)
+					setTimeout(function(){
+				
+						mTween(txts,"bottom",-80,500)
+				
+					},2500)
+				},3000)
+			}
+			tab()
+			
+		</script>
+	</body>
+</html>
