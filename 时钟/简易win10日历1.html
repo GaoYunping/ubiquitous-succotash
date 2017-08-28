@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>win10日历</title>
+		<style>
+			body {
+				margin: 0;
+			}
+			
+			a {
+				text-decoration: none;
+				color: #fff;
+			}
+			
+			.calendar {
+				width: 448px;
+				padding: 15px;
+				margin: 0 auto;
+				background: rgba(0, 0, 0, 0.5);
+				padding-bottom: 20px;
+			}
+			
+			.date-month {
+				width: 100%;
+				height: 66px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				box-sizing: border-box;
+				padding: 0 32px;
+			}
+			
+			.cur-month {
+				height: 100%;
+				color: #ccc;
+				font: 24px/66px Arial;
+			}
+			
+			.set-month a,
+			.cur-month {
+				cursor: default;
+				-webkit-user-select: none;
+			}
+			
+			.set-month a:hover,
+			.cur-month:hover {
+				color: #fff;
+			}
+			
+			.set-month {
+				width: 88px;
+				height: 100%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			
+			.set-month a {
+				color: #ccc;
+				font-size: 24px;
+			}
+			
+			.prev {
+				transform: rotate(90deg);
+			}
+			
+			.next {
+				transform: rotate(-90deg);
+			}
+			
+			.date-days,
+			.date-nums {
+				width: 100%;
+				height: 55px;
+				display: flex;
+				justify-content: flex-start;
+				align-items: flex-start;
+			}
+			
+			.date-nums {
+				height: auto;
+				flex-wrap: wrap;
+			}
+			
+			.date-days span,
+			.date-nums span {
+				width: 60px;
+				height: 56px;
+				border: 2px solid rgba(0, 0, 0, 0);
+				text-align: center;
+				color: yellowgreen;
+				font-size: 20px;
+				line-height: 55px;
+				cursor: default;
+			}
+			
+			.date-days span:hover,
+			.date-nums span:hover {
+				border-color: #ccc;
+			}
+			
+			.current-day {
+				background: rgb(141, 214, 237);
+			}
+			
+			.date-nums span.other-month-date {
+				color: #ccc;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="calendar">
+			<div class="date-month">
+				<div class="cur-month">xxxx年x月</div>
+				<div class="set-month">
+					<a href="javascript:;" class="prev">
+						<</a>
+							<a href="javascript:;" class="next">
+								<</a>
+				</div>
+			</div>
+			<div class="date-dates">
+				<div class="date-days">
+					<span>一</span>
+					<span>二</span>
+					<span>三</span>
+					<span>四</span>
+					<span>五</span>
+					<span>六</span>
+					<span>日</span>
+				</div>
+				<div class="date-nums">
+					<!--<span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+         <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>-->
+				</div>
+			</div>
+		</div>
+		<script>
+			var dateNums = document.querySelector(".date-nums");
+			var curMonth = document.querySelector('.cur-month');
+			var n = 0
+
+			var prev = document.querySelector(".prev");
+			var next = document.querySelector(".next");
+			time(n)
+			prev.onclick = function() {
+				n--
+				time(n)
+			}
+			next.onclick = function() {
+				n++
+				time(n)
+			}
+
+			function time(n) {
+				var d = new Date();
+				var month = d.getMonth(); //获取当前真实月份
+				month = month + n; //当前月的等于当前月+n ，n会随着按钮的的每次点击加+或减1
+				var d2 = new Date();
+				d2.setMonth(month); //设置d2的月份
+				var d2Year = d2.getFullYear(); //获取年
+				var d2Month = d2.getMonth(); //获取d2设置的月
+				//curMonth的innerHTML等于获取的年加上获取到的月，(d2Month+1)因为月份是从0开始，获取到的月份+1得到真实月份
+				curMonth.innerHTML = d2Year + "年" + (d2Month + 1) + "月";
+				d2.setDate(1); //设置第一日
+				var firstDateWeek = d2.getDay(); //获取第一日是周几
+				var html = "";
+				var dateNums = document.querySelector(".date-nums");
+				for(var i = 0; i < firstDateWeek - 1; i++) {
+					html += "<span></span>"
+				}
+				d2.setMonth(month + 1);//设置d2为当前月的下一个月
+				d2.setDate(0);//设置下一个月的第0天可以得到上一个月的最后一天是多少号
+				var tian = d2.getDate();//上一个月有多少号可以推算出一共有多少天，有多少钱就生成多少个span。
+				for(var i = 1; i <= tian; i++) {
+					html += "<span>" + i + "</span>"
+				}
+
+				dateNums.innerHTML = html
+			}
+		</script>
+	</body>
+
+</html>

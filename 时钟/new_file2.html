@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				
+			}
+			ul{
+				list-style: none;
+			}
+			.box{
+				width: 1024px;
+				height: 700px;
+				background: url(img/bg.png) no-repeat;
+				margin: 0 auto;
+				box-sizing: border-box;
+				padding-top: 300px;
+			}
+			.wrap{
+				width: 625px;
+				height: 116px;
+				background: url(img/clockBg.png) no-repeat;
+				margin: 0 auto;
+				box-sizing: border-box;
+				padding-left: 120px;
+				padding-top: 14px;
+			}
+			.ulwrap{
+				width: 141px;
+				height: 90px;
+				background: url(img/round.png) no-repeat;
+				float: left;
+				box-sizing: border-box;
+				padding: 5px 8px;
+				overflow: hidden;
+			}
+			ul{
+				width: 125px;
+				height: 80px;
+				overflow: hidden;
+				position: relative;
+			}
+			span{
+				float: left;
+				width: 30px;
+				height: 90px;
+				box-sizing: border-box;
+				padding-top: 21px;
+				text-align: center;
+				overflow: hidden;
+				}
+			li{
+				width: 60px;
+				height: 160px;
+				float: left;
+				position: relative;
+				top: 0px;
+				color: #fff;
+				
+				
+			}
+			li:nth-child(1){
+				margin-right: 5px;
+			}
+			li img{
+				width:60px;
+				height: 80px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<div class="wrap">
+				<div class="ulwrap">
+					<ul>
+						<li>
+							<img src="img/0.png"/>
+							<img src="img/0.png"/>
+						</li>
+						<li>
+							<img src="img/0.png"/>
+							<img src="img/0.png"/>
+						</li>
+					</ul>
+				</div>
+				
+				<span >
+					<img src=""/>
+				</span>
+				<div class="ulwrap">
+					<ul>
+						<li>
+							<img src="img/0.png"/>
+							<img src="img/0.png"/>
+						</li>
+						<li>
+							<img src="img/0.png"/>
+							<img src="img/0.png"/>
+						</li>
+					</ul>
+				</div>
+				<span >
+					<img src=""/>
+				</span>
+				<div class="ulwrap">
+					<ul>
+						<li>
+							<img src="img/0.png"/>
+							<img src="img/0.png"/>
+						</li>
+						<li>
+							<img src="img/0.png"/>
+							<img src="img/0.png"/>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+		<script type="text/javascript" src="js/utils.js">
+			
+			
+		</script>
+		<script type="text/javascript">
+			 showtime();
+			setInterval(function(){
+       			showtime();
+    		},1000);
+			//获取时间
+			function time (){
+				var d = new Date();
+				var h = d.getHours();
+				var m = d.getMinutes();
+				var s = d.getSeconds();
+				h= h<10?"0"+h:h;
+				m= m<10?"0"+m:m;
+				s= s<10?"0"+s:s;
+				return ""+h+m+s;
+			}
+			//显示时间
+			function showtime(){
+				var lis = $("li");
+				var t = time();
+				for (var i = 0; i < lis.length; i++) {
+					forTime(lis[i],t.charAt(i));
+				}
+				var dian = $("span img");
+				for (var j = 0; j < dian.length; j++) {
+					dian[j].src="img/dian.png";
+					fn(j)
+				}
+				function fn(i) {
+					setTimeout(function() {
+						dian[i].src = "./img/dian1.png"
+					}, 500)
+				}
+			}
+			
+			//运动
+			function forTime(obj,num){
+				if(!obj.time)obj.time=num;	
+				var imgs =obj.getElementsByTagName("img");
+				imgs[0].src='img/'+obj.time+'.png';
+				imgs[1].src='img/'+num+'.png';
+				if(obj.time!=num){
+					mTween(obj,"top",-84,500,"linear",function(){
+						imgs[0].src='img/'+num+'.png';
+						obj.style.top=0;
+					})
+				}
+				obj.time=num;
+			}
+		</script>
+	</body>
+</html>
