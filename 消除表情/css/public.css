@@ -1,0 +1,72 @@
+.fl {
+ 	float: left;
+ }
+ 
+ .fr {
+ 	float: right;
+ }
+ 
+ .clearFix:after {
+ 	content: "";
+ 	display: block;
+ 	clear: both;
+ 	height: 0;
+ 	overflow: hidden;
+ }
+ 
+ .clearFix {
+ 	zoom: 1;
+ }
+ 
+ .opacity10 {
+ 	opacity: 0.1;
+ 	filter: alpha(opacity=10);
+ }
+ 
+ .opacity20 {
+ 	opacity: 0.2;
+ 	filter: alpha(opacity=20);
+ }
+ 
+ .opacity30 {
+ 	opacity: 0.3;
+ 	filter: alpha(opacity=30);
+ }
+ 
+ .opacity40 {
+ 	opacity: 0.4;
+ 	filter: alpha(opacity=40);
+ }
+ 
+ .opacity50 {
+ 	opacity: 0.5;
+ 	filter: alpha(opacity=50);
+ }
+ 
+ .opacity60 {
+ 	opacity: 0.6;
+ 	filter: alpha(opacity=60);
+ }
+ 
+ .opacity70 {
+ 	opacity: 0.7;
+ 	filter: alpha(opacity=70);
+ }
+ 
+ .opacity80 {
+ 	opacity: 0.8;
+ 	filter: alpha(opacity=80);
+ }
+ 
+ .opacity90 {
+ 	opacity: 0.9;
+ 	filter: alpha(opacity=90);
+ }
+ 
+ .middle{
+ 	width: 0;
+ 	height: 100%;
+ 	display: inline-block;
+ 	vertical-align: middle;
+ 	
+ }

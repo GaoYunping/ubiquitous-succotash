@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/reset.css" />
+		<style type="text/css">
+			.box {
+				width: 1000px;
+				height: 700px;
+				box-sizing: border-box;
+				padding: 225px 155px 0px;
+				margin: 0 auto;
+				position: relative;
+				background: url(img/bg.png);
+			}
+			
+			.wrap {
+				width: 690px;
+				height: 414px;
+				background: url(img/bg1.png) no-repeat center center;
+				background-color: rgba(0, 0, 0, 0.7);
+				box-sizing: border-box;
+				border: 6px solid #ddd8f9;
+				/*overflow: hidden;*/
+				position: relative;
+			}
+			
+			.zheceng {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			
+			.btn {
+				height: 46px;
+				width: 156px;
+				border-radius: 23px;
+				background: url(img/btn.png) no-repeat;
+				line-height: 46px;
+				text-align: center;
+				font-size: 16px;
+				font-weight: bold;
+				color: #fff;
+				position: absolute;
+				bottom: 30px;
+				left: 50%;
+				transform: translateX(-78px);
+			}
+			
+			.goal {
+				background: #78268c;
+			}
+			
+			.goal,
+			.lose {
+				width: 80px;
+				height: 80px;
+				border: 1px solid #9a8ea0;
+				box-sizing: border-box;
+				border-radius: 40px;
+				margin-top: 20px;
+				color: #fff;
+				padding: 20px;
+				font-size: 16px;
+				font-weight: 600;
+				text-align: center;
+			}
+			
+			.lose {
+				background: #59599f;
+			}
+			
+			.goal span,
+			.lose span {
+				line-height: 24px;
+			}
+			
+			.imgWrap img {
+				position: absolute;
+				top: -80px;
+			}
+			
+			.imgWrap {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				overflow: hidden;
+				top: 0;
+				left: 0;
+			}
+			
+			.pointWrap {
+				width: 80px;
+				height: 200px;
+				z-index: 10;
+				left: 20px;
+				top: 20px;
+				transition: 0.5s;
+				position: absolute;
+			}
+		</style>
+	</head>
+
+	<body>
+		<section class="box">
+
+			<div class="wrap">
+				<div class="pointWrap">
+					<div class="goal">
+						<span><b>0</b>分</span>
+						<i>得分</i>
+					</div>
+					<div class="lose">
+						<span><b>0</b>分</span>
+						<i>失分</i>
+					</div>
+				</div>
+
+				<div class="imgWrap">
+					<!--<img src="img/1.png" id="walk" />-->
+				</div>
+
+				<span class="btn">开始游戏</span>
+
+			</div>
+
+		</section>
+		<script type="text/javascript" src="js/utils.js">
+		</script>
+		<script type="text/javascript">
+			//找到开始按钮
+			var btn = $(".btn")[0];
+			//分数父元素
+			var pointWrap = $(".pointWrap")[0];
+			//得分
+			var goalB = $(".goal b")[0];
+			//失分
+			var loseB = $(".lose b")[0];
+			//img包装
+			var imgWrap = $(".imgWrap")[0];
+			
+			var wrap = $(".wrap")[0]
+			var g = 0;//记录得分
+			var l = 0;//记录失分
+			var time=2000;//开始时间
+			btn.onclick = function() {//开始菜单被点击的时候
+				
+				pointWrap.style.left = "-100px";//pointWrap向左移动；
+				btn.style.display = "none";//按钮消失
+				g=0;//得分清零
+				l=0;//失分清零
+				loseB.innerHTML = l;//失分重新赋值
+				goalB.innerHTML = g;//得分重新赋值
+				time=2000;//时间重新开始
+				create();//执行函数
+			}
+
+			
+			function create(){
+				var newimg = document.createElement("img");//创建 img元素
+				newimg.src="img/" + Math.round(Math.random() * (5 - 1) + 1) + ".png";//img的src添加地址
+				imgWrap.innerHTML="";//清空imgWrap
+				imgWrap.appendChild(newimg);//imgWrap插入img
+				newimg.style.left = Math.round(Math.random() * (600 - 20) + 20) + "px";//位置随机
+				
+				newimg.onmousedown = function () {//img被点击的时候
+					time-=100; //time每次减100
+					goalB.innerHTML = ++g;//得分+1
+					newimg.src = "img/7.png";//被点击后改变img的src地址
+					clearInterval(newimg.timer)////停止img自身的定时器。
+					shake(newimg, "left", 20,create);//执行抖动函数，抖动完执行回掉函数，重新开始递归。
+					
+				}
+				mTween(newimg,{top:400},time,"linear",function(){
+					time-=50; //时间每次减少50
+					//执行mTween函数，img的top值，time时间执行完（time时间一次递减），如果top值走到400说明img没有被点到。
+					//开始执行回掉函数
+					loseB.innerHTML = ++l;//失分每次递增1分
+					shake(wrap, "top", 20, function() {//大窗口抖动，
+						if(l >= 5) {//如果失分大于5分，
+//							clearInterval(newimg.timer);
+							pointWrap.style.left = "20px";//pointWrap恢复出事状态
+							btn.style.display = "block";//按钮显示出来
+							btn.innerHTML = "重新开始";//按钮的HTML重新赋值。
+							return;//退出不在执行。
+						}
+						create()//执行递归函数。
+					})
+
+				})
+				
+			}
+					
+			
+			
+			
+			
+		</script>
+	</body>
+
+</html>
