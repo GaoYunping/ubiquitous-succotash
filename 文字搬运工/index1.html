@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>文字搬运工</title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				
+			}
+			.box{
+				width: 1200px;
+				height: 700px;
+				box-sizing: border-box;
+				background: url(img/bg.png) no-repeat;
+				padding: 211px 202px 111px 204px;
+			}
+			.left ,.right {
+				width: 328px;
+				height: 386px;
+				border-radius: 5px;
+				float: left;
+				border-radius: 5px;
+				
+				box-sizing: border-box;
+				
+			}
+			.center{
+				width: 138px;
+				float: left;
+				height: 388px;
+				box-sizing: border-box;
+				text-align: center;
+				padding-top: 136px;
+				
+				
+			}
+			.center p{
+				line-height: 98px;
+				font-size: 20px;
+				color: #7cc7ef;
+			}
+			i{
+				font-style: normal;
+			}
+			#btn{
+				width: 100px;
+				height: 80px;
+				display: inline-block;
+				background: url(img/span.png) no-repeat;
+			}
+			textarea,.righttxt {
+				width: 328px;
+				border: none;
+				height: 386px;
+				box-sizing: border-box;
+				padding: 20px;
+				font-size: 14px;
+				line-height: 24px;
+				color: #402196;
+				border-radius: 5px;
+				resize: none;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<section class="box">
+			<div class="left">
+				<textarea name="" rows="" cols="" class="lefttxt">妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一途中全新的快乐学习方法！目前主要针对的是javascript培训，同时还提供了css教程、javascript视频、js特效等，最新推出了外地学员们喜欢的javascript网络课程服务，同时还为处于javascript入门阶段的朋友录制了大量javascript视频，其中涉及了大量javascript基础知识，希望妙味课堂推出的javascript网络培训课程能带给大家更多惊喜。</textarea>
+			</div>
+			
+			<div class="center">
+				<span id="btn"></span>
+				
+				<p>
+					<i>0</i>/<i>0</i>
+				</p>
+			</div>
+			<div class="right">
+				<div class="righttxt"></div>
+			</div>
+		</section>
+		<script type="text/javascript" src="js/utils.js">
+			
+		</script>
+		<script type="text/javascript">
+			var leftTxt = $(".lefttxt")[0];
+			var rightTxt = $(".righttxt")[0];
+			var btn = $("#btn");
+			var is = $("i");
+			is[0].innerHTML=leftTxt.value.length;
+			btn.onclick=function(){
+				fu()
+			}
+		function fu(){
+			if(bb){
+				return
+			}
+			
+			if(leftTxt.value==""){
+				alert("左边内容不能为空")
+			}else{
+			
+				rightTxt.innerHTML = '';
+			}
+			is[0].innerHTML=leftTxt.value.length;
+			leftTxt.disabled=true;
+			var bb = setInterval(function(){
+				rightTxt.innerHTML+=leftTxt.value.charAt(0,1);
+				leftTxt.value=leftTxt.value.slice(1);
+				
+				is[1].innerHTML=rightTxt.innerHTML.length
+				if(!leftTxt.value){
+					clearInterval(bb)
+					leftTxt.disabled=false;
+				}	
+			},30)
+			
+		}
+			
+		
+		
+			
+			
+		</script>
+	</body>
+</html>
