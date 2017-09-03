@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>文字搬运工</title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+				
+			}
+			.box{
+				width: 800px;
+				height: 700px;
+				box-sizing: border-box;
+				margin: 0 auto;
+				background: url(img/bg.png) no-repeat;
+				padding-top:171px  ;
+				padding-left: 115px;
+			}
+			.txtWrap{
+				width: 398px;
+				height:268px;		
+				float: left;
+				padding: 20px;
+				border-radius:5px ;
+				margin-right: 18px;
+				line-height: 24px;
+				font-size: 14px;
+				margin-bottom: 41px;
+				margin-left: 28px;
+				color: #0cb2d3;
+				box-sizing: border-box;
+			}
+			.rightwrap{
+				width: 100px;	
+				height: 270px;	
+				border-radius: 5px;
+				float: left;
+				position: relative;
+			}
+			.rightwrap span{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				width: 100px;
+				height: 80px;
+				
+			}
+			.rightwrap span:nth-child(1){
+				background: url(img/zhankai.png) no-repeat;
+				z-index: 10;
+			}
+			.rightwrap span:nth-child(2){
+				background: url(img/chazhao1.png) no-repeat;
+				z-index: 9;
+			}
+			.rightwrap span:nth-child(3){
+				background: url(img/tihuan.png) no-repeat;
+			}
+			.bottomwrap{
+				float: left;
+				width: 570px;
+				height: 158px;
+				border-radius:5px ;
+				background: #fff;
+				padding: 25px;
+				padding-right: 20px;
+				display: none;
+				box-sizing: border-box;
+				position: relative;
+			}
+			.bottomwrap i{
+				position: absolute;
+				top: 20px;
+				right: 25px;
+				width: 14px;
+				height: 14px;
+				background: url(img/guanbi.png) no-repeat;
+			}
+			.bottomwrap p{
+				height: 40px;
+				width: 300px;
+				float: left;
+				margin-bottom:20px;
+				
+			}
+			.bottomwrap p span{
+				float: left;
+				height: 40px;
+				width: 100px;
+				margin-bottom: 14px;
+			}
+			.bottomwrap p span:nth-child(1){
+				background: url(img/chazhao.png) no-repeat;
+				margin-right: 20px;
+				
+			}
+			.bottomwrap p span:nth-child(2){
+				background: url(img/th.png) no-repeat;
+			}
+			.inputWrap{
+				height: 50px;
+				float: left;
+			}
+			input{
+				border: 1px solid #abdde7;
+				background: #eef8fa;
+				float: left;
+				height: 48px;
+				border-radius: 5px;
+				margin-right: 14px;
+				box-sizing: border-box;
+				color: #1dafb8;
+				font-size: 20px;
+				padding-left: 10px;
+			}
+			#findTxt{
+				width: 398px;
+			}
+			.fin{
+				float: right;
+				width: 100px;
+				height: 50px;
+				background: url(img/chakan.png) no-repeat;
+			}
+			#findTxt1 ,#replaceTxt{
+				width: 190px;
+				display: none;
+			}
+			.txtWrap span{
+				background: green;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<section class="box">
+			
+			<div class="txtWrap">
+				妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一途中全新的快乐学习方法！目前主要针对的是javascript培训，同时还提供了css教程、javascript视频、js特效等，最新推出了外地学员们喜欢的javascript网络课程服务，同时还为处于javascript入门阶段的朋友录制了大量javascript视频，其中涉及了大量javascript基础知识，希望妙味课堂推出的javascript网络培训课程能带给大家更多惊喜。
+			</div>
+			<div class="rightwrap">
+				<span class="display"></span>
+				<span class="chazhao"></span>
+				<span class="tihuan"></span>
+			</div>
+			<div class="bottomwrap">
+				<p><span class="Bchazhao"></span><span class="Btihuan"></span></p>
+				<i class="guanbi"></i>
+				<div class="inputWrap">
+					<input type="text" name="" id="findTxt" value="" placeholder="请输入要查找的内容"/>
+					<input type="text" name="" id="findTxt1" value="" placeholder="请输入要查找的内容" />
+					<input type="text" name="" id="replaceTxt" value="" placeholder="请输入要替换的内容"/>
+					<span class="fin"></span>
+				</div>
+			</div>
+			
+		</section>
+		
+		<script type="text/javascript" src="js/utils.js">
+			
+		</script>
+		<script type="text/javascript">
+			var display = $(".display")[0];
+			var chazhao = $(".chazhao")[0];
+			var tihuan = $(".tihuan")[0];
+			var bottomwrap = $(".bottomwrap")[0];
+			var guanbi = $(".guanbi")[0]
+			
+			var switchB=true;//true为展开false为关闭
+			
+			display.onclick=function (){
+				
+				if(switchB){
+					mTween(chazhao,"top",95,200);
+					mTween(tihuan,"top",190,400);
+					bottomwrap.style.display="block";
+					switchB=false;
+				}else{
+					mTween(chazhao,"top",0,200);
+					mTween(tihuan,"top",0,400);
+					bottomwrap.style.display="none";
+					
+					switchB=true;
+				}
+					
+			}
+			guanbi.onclick=function (){
+				bottomwrap.style.display="none";	
+			}
+			var findTxt = $("#findTxt");
+			var findTxt1 = $("#findTxt1");
+			var spans = $("span",bottomwrap);
+			var replaceTxt = $("#replaceTxt");
+			var txtWrap =$(".txtWrap")[0];
+
+			spans[1].onclick=tihuan.onclick=function(){
+				btn("block","none",findTxt,false);
+				
+			}
+			spans[0].onclick=chazhao.onclick=function(){
+				btn("none","block",findTxt1,true);
+				
+			}
+			
+			
+			
+			
+			function btn(a,b,c,d){
+				findTxt1.style.display=a;
+				replaceTxt.style.display=a;
+				findTxt.style.display=b;
+				replaceTxt.value="";
+				c.value=""
+				switchBtn = d;
+
+			}
+			
+			var fin = $(".fin")[0];
+			
+			var text =txtWrap.innerHTML;
+			var switchBtn = true;//true 为查找 false 为替换
+			
+			fin.onclick=function(){
+				if(switchBtn){
+					
+					var findTxtValue=findTxt.value
+					if(findTxtValue==""){
+						alert("请输入查找内容")
+						return
+					}else{
+						var textArr=text.split(findTxtValue)
+						var ss=textArr.join("<span>"+findTxtValue+"</span>")
+						text = textArr.join(findTxtValue)
+					}
+				}else{
+					var findTxt1Value=findTxt1.value;
+					if(findTxt1Value==""){
+						alert("请输入替换内容")
+						return
+					}else{
+						var replaceTxt1Value = replaceTxt.value;
+						var textArr1 =text.split(findTxt1Value);
+						var ss=textArr1.join("<span>"+replaceTxt1Value+"</span>")
+						text=textArr1.join(replaceTxt1Value)
+					}
+				}
+				
+				txtWrap.innerHTML=ss
+				
+			}
+			
+			findTxt.onfocus=function(){
+				findTxt.value=""
+				txtWrap.innerHTML=text;
+			}
+			findTxt1.onfocus=function(){
+				findTxt1.value=""
+			}
+			replaceTxt.onfocus=function(){
+				replaceTxt.value=""
+				
+			}
+		</script>
+	</body>
+</html>
